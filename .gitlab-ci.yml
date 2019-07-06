@@ -1,12 +1,20 @@
-language: minimal
+image: docker:latest
 services:
-  - docker
-script:
+  - docker:dind
+
+build:
+  stage: build
+  script:
   - docker build -t awscli .
   - docker run --rm -i -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY awscli aws --version
-after_success:
-  - git config --global user.email "build@travis-ci.com"
-  - git config --global user.name "Travis CI"
+  only:
+    - master
+
+tag:
+  stage: build
+  script:
+  - git config --global user.email "ci@gitlab.com"
+  - git config --global user.name "GitLab CI"
   - GIT_TAG=$(cat requirements.txt)
   - GIT_TAG=${GIT_TAG#awscli==}
   - git tag -f "$GIT_TAG" -a -m "AWS CLI v$GIT_TAG"
@@ -15,6 +23,5 @@ after_success:
   - SSH_REMOTE=ssh://git@github.com/sgreben/docker-awscli.git
   - git push "$SSH_REMOTE" :"$GIT_TAG" || true
   - git push "$SSH_REMOTE" "$GIT_TAG"
-branches:
   only:
   - master
