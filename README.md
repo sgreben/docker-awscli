@@ -11,5 +11,5 @@ docker pull quay.io/sgreben/awscli
 ```
 
 ```
-docker run --rm -i aws --version
+docker run --rm -i quay.io/sgreben/awscli aws --version
 ```
