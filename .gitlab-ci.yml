@@ -11,7 +11,7 @@ build:
     - master
 
 tag:
-  stage: build
+  stage: deploy
   script:
   - git config --global user.email "ci@gitlab.com"
   - git config --global user.name "GitLab CI"
