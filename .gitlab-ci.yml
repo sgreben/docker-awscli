@@ -1,18 +1,20 @@
-image: docker:latest
-services:
-  - docker:dind
 
 build:
   stage: build
+  image: docker:latest
+  services:
+  - docker:dind
   script:
   - docker build -t awscli .
   - docker run --rm -i -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY awscli aws --version
   only:
-    - master
+  - master
 
 tag:
   stage: deploy
+  image: alpine:latest
   script:
+  - apk add --no-cache git openssh-client
   - git config --global user.email "ci@gitlab.com"
   - git config --global user.name "GitLab CI"
   - GIT_TAG=$(cat requirements.txt)
