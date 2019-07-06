@@ -24,6 +24,7 @@ tag:
   - printf "%s" "$SSH_KEY_PEM_BASE64" | base64 -d > ~/.ssh/id_rsa
   - chmod 400  ~/.ssh/id_rsa
   - SSH_REMOTE=ssh://git@github.com/sgreben/docker-awscli.git
+  - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   - git push "$SSH_REMOTE" :"$GIT_TAG" || true
   - git push "$SSH_REMOTE" "$GIT_TAG"
   only:
