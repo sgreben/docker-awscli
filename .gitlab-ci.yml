@@ -20,8 +20,8 @@ tag:
   - GIT_TAG=$(cat requirements.txt)
   - GIT_TAG=${GIT_TAG#awscli==}
   - git tag -f "$GIT_TAG" -a -m "AWS CLI v$GIT_TAG"
-  - printf "%s" "$SSH_KEY_PEM_BASE64" | base64 -d > ~/.ssh/id_rsa
   - mkdir -p ~/.ssh/
+  - printf "%s" "$SSH_KEY_PEM_BASE64" | base64 -d > ~/.ssh/id_rsa
   - <<<$SSH_KEY_PEM_BASE64 base64 -d > ~/.ssh/id_rsa
   - chmod 400  ~/.ssh/id_rsa
   - SSH_REMOTE=ssh://git@github.com/sgreben/docker-awscli.git
