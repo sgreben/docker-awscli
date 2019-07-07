@@ -6,7 +6,7 @@ build:
   - docker:dind
   script:
   - docker build -t awscli .
-  - docker run --rm -i -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY awscli aws --version
+  - docker run --rm -i awscli aws --version
   only:
   - master
 
